@@ -6,15 +6,19 @@ from PIL import Image
 import pathlib
 import time
 
-train_images = []
+def getDataset(name):
+    imgs = []
+    for filepath in pathlib.Path("dataset/"+name).glob('**/*'):
+        im = keras.preprocessing.image.load_img(
+            filepath.absolute(), target_size=(100, 100))
+        img = keras.preprocessing.image.img_to_array(im)
+        imgs.append(img)
+    return imgs
+    
+train_images = getDataset("anime")
 # 0 - anime, 1 - human
 train_labels = ['anime', 'human']
 
-for filepath in pathlib.Path("dataset/anime").glob('**/*'):
-    im = keras.preprocessing.image.load_img(
-        filepath.absolute(), target_size=(100, 100))
-    img = keras.preprocessing.image.img_to_array(im)
-    train_images.append(img)
 
 print(train_images)
 
@@ -47,3 +51,4 @@ model.compile(
 print(model.summary)
 # sess = tf.Session()
 # print(sess.run())
+
