@@ -23,7 +23,7 @@ for currentPath in dataPaths:
     img = keras.preprocessing.image.img_to_array(im)
     train_images.append(img)
     label = 0
-    if "face" in str(currentPath).rsplit('/', 1)[1]:
+    if "face" in str(currentPath):
         label = 1
     train_labels.append(label)
 
@@ -66,6 +66,3 @@ model.compile(
 model.fit(np.array(train_images, dtype="float") / 255.0, np.asarray(train_labels), epochs = 5)
 
 print(model.summary)
-# sess = tf.Session()
-# print(sess.run())
-
