@@ -31,20 +31,19 @@ model = keras.Sequential([
     keras.layers.Flatten(),
     keras.layers.Dense(
         units=128,
-        activation='relu'),
+        activation=tf.nn.relu),
     keras.layers.Dense(
         units=1,  # output neurons
         activation=tf.nn.sigmoid)
 ])
 
-# model.compile(
-#     optimizer = tf.train.AdamOptimizer(),
-#     loss = 'sparse_categorical_crossentropy',
-#     metrics = ['accuracy'])
+model.compile(
+    optimizer=tf.train.AdamOptimizer(),
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy'])
 
 # model.fit(train_images, train_labels, epochs = 5)
 
-print(model.input_shape)
-print(model.output_shape)
+print(model.summary)
 # sess = tf.Session()
 # print(sess.run())
