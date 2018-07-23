@@ -22,10 +22,12 @@ model=keras.Sequential([
     keras.layers.Conv2D(
         20, (5, 5),
         padding='same',
-        input_shape=(100, 100, 3)),  # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
-    keras.layers.Dense(
-        units=128,  # hidden neurons
-        activation=tf.nn.relu),
+        input_shape=(100, 100, 3),
+        activation = tf.nn.relu),  # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
+    keras.layers.MaxPooling2D(
+        pool_size = (2,2)
+    ),
+    keras.layers.Flatten(),
     keras.layers.Dense(
         units=1,  # output neurons
         activation=tf.nn.sigmoid)
