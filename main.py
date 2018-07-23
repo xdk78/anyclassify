@@ -69,7 +69,7 @@ model.fit(train_images, train_labels, epochs=5)
 im = keras.preprocessing.image.load_img("testdata/anime_1.jpg", target_size=(100, 100))
 img = keras.preprocessing.image.img_to_array(im)
 
-test_images = np.array(img, dtype="float") / 255.0
+test_images = np.array([img], dtype="float") / 255.0
 # 0 - anime, 1 - human
 test_labels = [0]
 
