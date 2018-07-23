@@ -1,10 +1,8 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-import matplotlib.pyplot as plt
 from PIL import Image
 import pathlib
-import time
 import random
 
 def getPaths(name):
@@ -63,16 +61,20 @@ model.compile(
     loss='binary_crossentropy',
     metrics=['accuracy'])
 
-model.fit(np.array(train_images, dtype="float") / 255.0, np.asarray(train_labels), epochs = 5)
+train_images = np.array(train_images, dtype="float") / 255.0
+train_labels = np.asarray(train_labels)
+
+model.fit(train_images, train_labels, epochs=5)
+# testdata
 im = keras.preprocessing.image.load_img("testdata/anime_1.jpg", target_size=(100, 100))
 img = keras.preprocessing.image.img_to_array(im)
 
-test_images = [img]
+test_images = np.array(img, dtype="float") / 255.0
 # 0 - anime, 1 - human
-test_labels = [[0]]
+test_labels = [0]
 
-test_loss, test_acc = model.evaluate(np.array(test_images, dtype="float") / 255.0, np.asarray(test_labels),)
+test_loss, test_acc = model.evaluate(test_images, test_labels)
 
 print('Test accuracy:', test_acc)
-predictions = model.predict(np.array(test_images, dtype="float") / 255.0,)
-print(predictions)
+predictions = model.predict(test_images)
+print("predictions:", predictions)
