@@ -63,6 +63,12 @@ model.compile(
     loss='binary_crossentropy',
     metrics=['accuracy'])
 
-model.fit(np.array(train_images, dtype="float") / 255.0, np.asarray(train_labels), epochs = 5)
+model.fit(np.array(train_images, dtype="float") / 255.0, np.asarray(train_labels), epochs = 20)
 
 print(model.summary)
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+    json_file.write(model_json)
+# serialize weights to HDF5
+model.save_weights("model.h5")
+print("Saved model to disk")
