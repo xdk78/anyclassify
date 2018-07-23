@@ -4,18 +4,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import pathlib
+import time
 
 train_images = []
 # 0 - anime, 1 - human
 train_labels=['anime', 'human']
 
-for filepath in pathlib.Path("dataset/faces").glob('**/*'):
-    train_images.append(filepath.absolute())
-
-for facepath in train_images:
-    i = Image.open(facepath)
-    a = np.asarray(i) # a is readonly
-    train_images.append(a)
+for filepath in pathlib.Path("dataset/anime").glob('**/*'):
+    im = Image.open(filepath)
+    train_images.append(np.asarray(im))
 
 print(train_images)
 
