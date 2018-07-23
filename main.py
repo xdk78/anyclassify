@@ -22,13 +22,13 @@ model=keras.Sequential([
     keras.layers.Conv2D(
         20, (5, 5),
         padding='same',
-        input_shape=(3, 100, 100)),  # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
+        input_shape=(100, 100, 3)),  # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
     keras.layers.Dense(
         units=128,  # hidden neurons
         activation=tf.nn.relu),
     keras.layers.Dense(
-        units=10,  # output neurons
-        activation=tf.nn.softmax)
+        units=1,  # output neurons
+        activation=tf.nn.sigmoid)
 ])
 
 # model.compile(
