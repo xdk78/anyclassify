@@ -10,7 +10,7 @@ currentPage = 3
 SCRAPE_URL = "https://avatars.alphacoders.com/by_category/3?page="
 
 import pathlib
-pathlib.Path('dataset/anime').mkdir(parents=True, exist_ok=True) 
+pathlib.Path('dataset/anime').mkdir(parents=True, exist_ok=True)
 
 while (scraped <= scrapeCount):
     print("Parsing page " + str(currentPage))
