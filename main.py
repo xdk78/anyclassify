@@ -16,6 +16,7 @@ def getPaths(name):
 dataPaths = (getPaths("anime") + getPaths("faces"))
 random.shuffle(dataPaths)
 train_images = []
+# 0 - anime, 1 - human
 train_labels = []
 
 for currentPath in dataPaths:
@@ -30,7 +31,6 @@ for currentPath in dataPaths:
 
 print(len(train_images))
 print(len(train_labels))
-# 0 - anime, 1 - human
 
 model = keras.Sequential([
     keras.layers.Conv2D(
@@ -64,5 +64,13 @@ model.compile(
     metrics=['accuracy'])
 
 model.fit(np.array(train_images, dtype="float") / 255.0, np.asarray(train_labels), epochs = 5)
+im = keras.preprocessing.image.load_img("testdata/anime_1.jpg", target_size=(100, 100))
+img = keras.preprocessing.image.img_to_array(im)
 
-print(model.summary)
+test_images = [img]
+# 0 - anime, 1 - human
+test_labels = [[0]]
+
+test_loss, test_acc = model.evaluate(np.array(test_images, dtype="float") / 255.0, np.asarray(test_labels),)
+
+print('Test accuracy:', test_acc)
