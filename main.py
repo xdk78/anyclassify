@@ -74,3 +74,5 @@ test_labels = [[0]]
 test_loss, test_acc = model.evaluate(np.array(test_images, dtype="float") / 255.0, np.asarray(test_labels),)
 
 print('Test accuracy:', test_acc)
+predictions = model.predict(np.array(test_images, dtype="float") / 255.0,)
+print(predictions)
