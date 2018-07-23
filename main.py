@@ -11,8 +11,9 @@ train_images = []
 train_labels=['anime', 'human']
 
 for filepath in pathlib.Path("dataset/anime").glob('**/*'):
-    im = Image.open(filepath)
-    train_images.append(np.asarray(im))
+    im= keras.preprocessing.image.load_img(filepath.absolute(), target_size = (100, 100))
+    img = keras.preprocessing.image.img_to_array(im)
+    train_images.append(img)
 
 print(train_images)
 
