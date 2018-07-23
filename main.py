@@ -1,9 +1,26 @@
 import tensorflow as tf
 from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+import pathlib
 
+train_images = []
 # 0 - anime, 1 - human
-lables = ['anime', 'human']
-model = keras.Sequential([
+train_labels=['anime', 'human']
+
+for filepath in pathlib.Path("dataset/faces").glob('**/*'):
+    train_images.append(filepath.absolute())
+
+for facepath in train_images:
+    i = Image.open(facepath)
+    a = np.asarray(i) # a is readonly
+    train_images.append(a)
+
+print(train_images)
+
+
+model=keras.Sequential([
     keras.layers.Conv2D(
         20, (5, 5),
         padding='same',
@@ -15,6 +32,14 @@ model = keras.Sequential([
         units=10,  # output neurons
         activation=tf.nn.softmax)
 ])
+
+# model.compile(
+#     optimizer = tf.train.AdamOptimizer(),
+#     loss = 'sparse_categorical_crossentropy',
+#     metrics = ['accuracy'])
+
+# model.fit(train_images, train_labels, epochs = 5)
+
 print(model.input_shape)
 print(model.output_shape)
 # sess = tf.Session()
