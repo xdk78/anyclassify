@@ -5,22 +5,33 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import pathlib
 import time
+import random
 
-def getDataset(name):
+def getPaths(name):
     imgs = []
     for filepath in pathlib.Path("dataset/"+name).glob('**/*'):
-        im = keras.preprocessing.image.load_img(
-            filepath.absolute(), target_size=(100, 100))
-        img = keras.preprocessing.image.img_to_array(im)
-        imgs.append(img)
+        imgs.append(filepath.absolute())
     return imgs
-    
-train_images = getDataset("anime")
+
+dataPaths = (getPaths("anime") + getPaths("faces"))
+random.shuffle(dataPaths)
+train_images = []
+train_labels = []
+for currentPath in dataPaths:
+    im = keras.preprocessing.image.load_img(currentPath, target_size=(100, 100))
+    img = keras.preprocessing.image.img_to_array(im)
+    train_images.append(img)
+    label = 0
+    if "face" in str(currentPath).rsplit('/', 1)[1]:
+        label = 1
+    train_labels.append(label)
+
+
 # 0 - anime, 1 - human
-train_labels = ['anime', 'human']
 
 
-print(train_images)
+print(dataPaths)
+print(train_labels)
 
 
 model = keras.Sequential([
