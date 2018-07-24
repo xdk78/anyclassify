@@ -34,7 +34,7 @@ model = keras.Sequential([
     keras.layers.Conv2D(
         20, (5, 5),
         padding='same',
-        # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
+        # image 100 x 100, 3 for RGB,
         input_shape=(100, 100, 3),
         activation=tf.nn.relu),
     keras.layers.MaxPooling2D(
@@ -42,14 +42,14 @@ model = keras.Sequential([
     keras.layers.Conv2D(
         20, (5, 5),
         padding='same',
-        # 3 for RGB, image 100 x 100, we need to convert 2D to 1D
+        # image 100 x 100, 3 for RGB,
         input_shape=(100, 100, 3),
         activation=tf.nn.relu),
     keras.layers.MaxPooling2D(
         pool_size=(2, 2)),
-    keras.layers.Flatten(),
+    keras.layers.Flatten(), # convert 2D to 1D
     keras.layers.Dense(
-        units=128,
+        units=128,  # hiden neurons
         activation=tf.nn.relu),
     keras.layers.Dense(
         units=1,  # output neurons
@@ -62,7 +62,6 @@ model.compile(
     metrics=['accuracy'])
 
 train_images = np.array(train_images, dtype="float") / 255.0
-train_labels = np.asarray(train_labels)
 
 model.fit(train_images, train_labels, epochs=5)
 # testdata
